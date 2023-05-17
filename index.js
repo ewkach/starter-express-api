@@ -1,7 +1,10 @@
 const express = require('express')
-const app = express()
+const cors = require('cors')
 
-let newAlerts = []
+const app = express()
+app.use(cors())
+
+let alert = null
 
 app.all('/', (req, res) => {
     console.log("Just got a request!")
@@ -11,14 +14,14 @@ app.all('/', (req, res) => {
 app.post('/alert', (req, res) => {
     const newAlert = request.body;
     console.log("Got a new alert", newAlert)
-    alerts.push(newAlert);
-    res.send("Got new alert, thanks!");
+    alert = newAlert;
+    res.send(`Got new alert ${newAlert}`);
 });
 
-app.get('/new', (req, res) => {
-    const recentAlerts = newAlerts;
-    newAlerts = [];
-    res.send(recentAlerts)
+app.get('/alert', (req, res) => {
+    const lastAlert = alert;
+    alert = null;
+    res.send(lastAlert)
 });
 
 
