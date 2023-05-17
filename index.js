@@ -3,13 +3,9 @@ const cors = require('cors')
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 
 let alert = null
-
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
-})
 
 app.post('/alert', (req, res) => {
     const newAlert = request.body;
